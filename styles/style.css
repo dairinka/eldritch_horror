@@ -149,7 +149,8 @@ button{
 }
 
 .back-stage1,
-.level{
+.level,
+.shuffle{
     visibility: hidden;
     background-color: #32a1ce;
     padding: 10px 20px;
@@ -166,14 +167,15 @@ button{
 }
 
 .back-stage1:active,
-.level:active{
+.level:active,
+.shuffle:active{
     transform: scale(0.9);
 }
 
 .ancient-item.selected{
     position:absolute;
     left: 30px;
-    top: 50vh;
+    top: 35vh;
 }
 .difficulties{
     display:flex;
@@ -184,8 +186,63 @@ button{
     width: 10%;
    
 }
+.shuffle{
+    visibility: hidden;
+    background-color: #a52a2a;
+    color: #32a1ce;
+    width:15%;
+    margin-top: 20px;
+}
+.shuffle:hover{
+    background-color:#ffffff;
+    color:  #a52a2a;
+}
+.deck-tracker{
+    display: none;
+    background-color: rgb(71 65 65);
+    border-radius: 10px;
+    color: #ffffff;
+}
 
+.deck-tracker.active{
+    display: block;
+    position: absolute;
+    right: 50vw;
+    top:35vh;
+}
 
+.track-stage{
+    margin: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    
+}
+.visibility-track{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.track-card{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.green-cards{
+    background-color: #335915;
+}
+
+.brown-cards{
+    background-color: #caab54;
+}
+
+.blue-cards{
+    background-color: #4a58a1;
+}
 
 

@@ -1,4 +1,4 @@
-import brownCardsAssets from '../../../assets/MythicCards/brown';
+import brownCardsAssets from '../../../assets/MythicCards/brown/index.js';
 
 const brownCardsData = [
   {
@@ -128,5 +128,6 @@ const brownCardsData = [
     color:'brown'
   },
 ]
+
 
 export default brownCardsData

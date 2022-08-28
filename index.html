@@ -13,31 +13,49 @@
         <header>
             <h1 class="h1 headline">Helper of Eldritch Horror Game</h1>
         </header>
-        <main>
-            <section class="stage ancient-stage active-stage">
+        <main class="active-stage"">
+            
                 <h2 class="h2 headline">Choose the Ancient:</h2>
                 <button class="back-stage1">BACK</button>
                 <ul class="ancients"></ul>
                 <div class="difficulties">
-                    <button class="super-easy level">super easy</button>
-                    <button class="easy level">easy</button>
-                    <button class="medium level">medium</button>
-                    <button class="hard level">hard</button>
-                    <button class="super-hard level">super hard</button>
+                    <button data-value="super-easy" class="super-easy level">super easy</button>
+                    <button data-value="easy" class="easy level">easy</button>
+                    <button data-value="medium" class="medium level">medium</button>
+                    <button data-value="hard" class="hard level">hard</button>
+                    <button data-value="super-hard" class="super-hard level">super hard</button>
+                    <button class="shuffle">shuffle the cards</button>
                 </div>
                 
-                <ul class="deck-tracker"></ul>
-                <ul class="decks"></ul>
+                <ul class="deck-tracker">
+                    <li class="first-stage track-stage">first stage
+                        <ul class="visibility-track">
+                            <li data-value="greenCards" class="green-cards first track-card"></li>
+                            <li data-value="brownCards" class="brown-cards first track-card"></li>
+                            <li data-value="blueCards" class="blue-cards first track-card"></li>
+                        </ul>
+                    </li>
+                    <li class="second-stage track-stage">second stage
+                        <ul class="visibility-track">
+                            <li data-value="greenCards" class="green-cards second track-card"></li>
+                            <li data-value="brownCards" class="brown-cards second  track-card"></li>
+                            <li data-value="blueCards" class="blue-cards second track-card"> </li>
+                        </ul>
+                    </li>
+                    <li class="third-stage track-stage">third stage
+                        <ul class="visibility-track">
+                            <li data-value="greenCards" class="green-cards third track-card"></li>
+                            <li data-value="brownCards" class="brown-cards third track-card"></li>
+                            <li data-value="blueCards" class="blue-cards third track-card"></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="decks">
+
+                </div>
                 
-            </section>
-            <!-- <section class="stage difficulties-stage">
-                
-                
-            </section>
-            <section class="stage deck-stage">
-                <h2 class="h2 headline">Your deck</h2>
-                
-            </section> -->
+           
+           
         </main>
         <footer></footer>
     </div>
