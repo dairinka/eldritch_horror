@@ -207,7 +207,7 @@ button{
 .deck-tracker.active{
     display: block;
     position: absolute;
-    right: 50vw;
+    left: 30vw;
     top:35vh;
 }
 
@@ -245,4 +245,25 @@ button{
     background-color: #4a58a1;
 }
 
+.decks{
+    display: flex;
+    visibility: hidden;
+    flex-direction: row; 
+    width: 20%;
+    position: absolute;
+    right: 20vw;
+    top: 35vh;
+}
 
+.decks.active{
+    visibility: visible;
+    
+}
+
+.current-card{
+    /* visibility: hidden; */
+    margin-left: 15px;
+    width: 100%;
+   
+    /* //z-index: 2; */
+}
