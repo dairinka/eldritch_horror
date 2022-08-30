@@ -35,6 +35,7 @@ const ancientDeck = [
 const ancientsList = document.querySelector('.ancients');
 const deckTrackerList = document.querySelector('.deck-tracker');
 const h2 = document.querySelector('.h2');
+const h1 = document.querySelector('.h1');
 const btnToStage1 = document.querySelector('.back-stage1');
 const btnLevels = document.querySelectorAll('.level');
 const difficultiesBlock = document.querySelector('.difficulties');
@@ -53,6 +54,9 @@ let i = 0,
 let cardsMatrix = [[],[],[]];
 let deckClick = null;
 let showCard = 0;
+let greenSet = new Set();
+let brownSet = new Set();
+let blueSet = new Set();
 let readyDeck = [
      {
         greenCards:[],
@@ -114,263 +118,297 @@ difficultiesBlock.onclick = function(event){
 cardBack.addEventListener('click', () =>{
     deckClick += 1;
     showCard = 0;
-        showDeck();
-    function showDeck(){
-        let index = ancientsArr.indexOf(choosenAncient);
-       //console.log(i, j);
-       if(i < cardsMatrix.length){
-            if(j < cardsMatrix[i].length){
-               // console.log(cardsMatrix[i][j]);
-                if(cardsMatrix[i][j]==0){
-                    j++;
-                    shuffleDeck();
-                }else{
-                    shuffleDeck(); 
-                }  
-                //j++;
-                if(showCard == 0){showDeck();}
-              //  console.log('j++');
-               // console.log(i, j);
+    showDeck();
+  
+})
+function showDeck(){
+    let index = ancientsArr.indexOf(choosenAncient);
+   
+   if(i < cardsMatrix.length){
+        if(j < cardsMatrix[i].length){
+           
+            if(cardsMatrix[i][j]==0){
+                j++;
+                shuffleDeck();
             }else{
+                shuffleDeck(); 
+            }  
+            
+            if(showCard == 0){showDeck();}
+         
+        }else{
             i++;
             j = 0;
             if(showCard == 0){showDeck();}
-          //  console.log('i++');
-          //  console.log(i, j);
-            }
-        }
-        
-
-    }
-
-    function shuffleDeck(){
-        if(levelItem == 'medium'){
-         //   console.log('i', i);
-          //  console.log('j', j);
-          //  console.log('cardsMatrix[i][j]', cardsMatrix[i][j])
-            if(cardsMatrix[i][j]>0){
-                if(j==0){
-                    let randomIndex = randomCard(greenCardsData.length-1); 
-                    currentCard.style.content =`url("${greenCardsData[randomIndex].cardFace}")`;
-                    showCard += 1;
-               
-                }
-                if(j==1){
-                    let randomIndex = randomCard(brownCardsData.length-1); 
-                    currentCard.style.content = `url("${brownCardsData[randomIndex].cardFace}")` ;
-                    showCard += 1;
-                }
-                if(j==2){
-                 
-                    let randomIndex = randomCard(blueCardsData.length-1); 
-                    currentCard.style.content = `url("${blueCardsData[randomIndex].cardFace}")`;
-                    showCard += 1;
-                } 
-                cardsMatrix[i][j] -= 1;
-                if(i == 0){
-                    firstLi[j].textContent -= 1;
-               // console.log(firstLi[j].textContent)
-                }
-                if(i == 1){
-                    secondLi[j].textContent -= 1;
-                    //console.log(secondLi[j].textContent)
-                }
-                if(i == 2){
-                    thirdLi[j].textContent -= 1;
-                   // console.log(thirdLi[j].textContent)
-                }
-            
-                
-
-            }
-          
-        }
-        if(levelItem == 'easy'){
-            let greenArray = [];
-            let brownArray = [];
-            let blueArray = [];
-            greenCardsData.forEach(el => {
-                if(el.difficulty == 'normal'|| el.difficulty == 'easy'){
-                    greenArray.push(el.cardFace);
-                }
-            })
-            brownCardsData.forEach(el => {
-                if(el.difficulty == 'normal'|| el.difficulty == 'easy'){
-                    brownArray.push(el.cardFace);
-                }
-            })
-            blueCardsData.forEach(el => {
-                if(el.difficulty == 'normal'|| el.difficulty == 'easy'){
-                   blueArray.push(el.cardFace);
-                }
-            })
-            getCards(greenArray,brownArray, blueArray);
-            
-        }
-        if(levelItem == 'hard'){
-            let greenArray = [];
-            let brownArray = [];
-            let blueArray = [];
-            greenCardsData.forEach(el => {
-                if(el.difficulty == 'normal'|| el.difficulty == 'hard'){
-                    greenArray.push(el.cardFace);
-                }
-            })
-            brownCardsData.forEach(el => {
-                if(el.difficulty == 'normal'|| el.difficulty == 'hard'){
-                    brownArray.push(el.cardFace);
-                }
-            })
-            blueCardsData.forEach(el => {
-                if(el.difficulty == 'normal'|| el.difficulty == 'hard'){
-                   blueArray.push(el.cardFace);
-                }
-            })
-            getCards(greenArray,brownArray, blueArray);
-            
-            
-        }
-        if(levelItem == 'super-easy'){
-            let greenArray = [];
-            let brownArray = [];
-            let blueArray = [];
-            
-                  
-           
-            let numberAncient = ancientDeck.findIndex(el => el.id == choosenAncient);
-            
-            
-            while(greenArray.length <= ancientDeck[numberAncient].greencard ){
-                greenCardsData.forEach(el => {
-                    if(el.difficulty == 'easy'){
-                        greenArray.push(el.cardFace);
-                    }
-                })
-                greenCardsData.forEach(el => {
-                    if(el.difficulty == 'normal'){
-                        greenArray.push(el.cardFace);
-                    }
-                })
-            }
-            while(brownArray.length <= ancientDeck[numberAncient]['brownCard'] ){
-                brownCardsData.forEach(el => {
-                    if(el.difficulty == 'easy'){
-                        brownArray.push(el.cardFace);
-                    }
-                })
-                brownCardsData.forEach(el => {
-                    if(el.difficulty == 'normal'){
-                        brownArray.push(el.cardFace);
-                    }
-                })
-            }
-            while(blueArray.length <= ancientDeck[numberAncient]['bluecard']){
-                blueCardsData.forEach(el => {
-                    if(el.difficulty == 'easy'){
-                        blueArray.push(el.cardFace);
-                    }
-                })
-                blueCardsData.forEach(el => {
-                    if(el.difficulty == 'normal'){
-                        blueArray.push(el.cardFace);
-                    }
-                })
-            }
-            getCards(greenArray,brownArray, blueArray);
-            
-            
-        }
-        if(levelItem == 'super-hard'){
-            let greenArray = [];
-            let brownArray = [];
-            let blueArray = [];
-            
-                  
-           
-            let numberAncient = ancientDeck.findIndex(el => el.id == choosenAncient);
-            
-            
-            while(greenArray.length <= ancientDeck[numberAncient].greencard ){
-                greenCardsData.forEach(el => {
-                    if(el.difficulty == 'hard'){
-                        greenArray.push(el.cardFace);
-                    }
-                })
-                greenCardsData.forEach(el => {
-                    if(el.difficulty == 'normal'){
-                        greenArray.push(el.cardFace);
-                    }
-                })
-            }
-            while(brownArray.length <= ancientDeck[numberAncient]['brownCard'] ){
-                brownCardsData.forEach(el => {
-                    if(el.difficulty == 'hard'){
-                        brownArray.push(el.cardFace);
-                    }
-                })
-                brownCardsData.forEach(el => {
-                    if(el.difficulty == 'normal'){
-                        brownArray.push(el.cardFace);
-                    }
-                })
-            }
-            while(blueArray.length <= ancientDeck[numberAncient]['bluecard']){
-                blueCardsData.forEach(el => {
-                    if(el.difficulty == 'hard'){
-                        blueArray.push(el.cardFace);
-                    }
-                })
-                blueCardsData.forEach(el => {
-                    if(el.difficulty == 'normal'){
-                        blueArray.push(el.cardFace);
-                    }
-                })
-            }
-            getCards(greenArray,brownArray, blueArray);
-            
-            
+      
         }
     }
-    function getCards(greenCards, brownCards, blueCards){
+    
+
+}
+
+
+function shuffleDeck(){
+    if(levelItem == 'medium'){
         if(cardsMatrix[i][j]>0){
             if(j==0){
-                let randomIndex = randomCard(greenCards.length-1); 
-                currentCard.style.content =`url("${greenCards[randomIndex]}")`;
+                let randomIndex = randomCard(greenCardsData.length-1); 
+                while(greenSet.has(randomIndex)){
+                    randomIndex = randomCard(greenCardsData.length-1);
+                }
+                greenSet.add(randomIndex);
+                
+                console.log('green', randomIndex);
+                currentCard.style.content =`url("${greenCardsData[randomIndex].cardFace}")`;
                 showCard += 1;
            
             }
             if(j==1){
-                let randomIndex = randomCard(brownCards.length-1); 
-                currentCard.style.content = `url("${brownCards[randomIndex]}")` ;
+                let randomIndex = randomCard(brownCardsData.length-1); 
+                while(greenSet.has(randomIndex)){
+                    randomIndex = randomCard(brownCardsData.length-1);
+                }
+                brownSet.add(randomIndex);
+                
+                console.log('brown', randomIndex);
+                currentCard.style.content = `url("${brownCardsData[randomIndex].cardFace}")` ;
                 showCard += 1;
             }
             if(j==2){
              
-                let randomIndex = randomCard(blueCards.length-1); 
-                currentCard.style.content = `url("${blueCards[randomIndex]}")`;
+                let randomIndex = randomCard(blueCardsData.length-1); 
+                while(greenSet.has(randomIndex)){
+                    randomIndex = randomCard(blueCardsData.length-1);
+                }
+                blueSet.add(randomIndex);
+                
+                console.log('blue', randomIndex);
+                currentCard.style.content = `url("${blueCardsData[randomIndex].cardFace}")`;
                 showCard += 1;
             } 
+            
             cardsMatrix[i][j] -= 1;
             if(i == 0){
                 firstLi[j].textContent -= 1;
-            //console.log(firstLi[j].textContent)
+           
             }
             if(i == 1){
                 secondLi[j].textContent -= 1;
-                //console.log(secondLi[j].textContent)
+               
             }
             if(i == 2){
                 thirdLi[j].textContent -= 1;
-                //console.log(thirdLi[j].textContent)
+               
             }
         
             
 
         }
+        
       
     }
-    
+    if(levelItem == 'easy'){
+        let greenArray = [];
+        let brownArray = [];
+        let blueArray = [];
+        greenCardsData.forEach(el => {
+            if(el.difficulty == 'normal'|| el.difficulty == 'easy'){
+                greenArray.push(el.cardFace);
+            }
+        })
+        brownCardsData.forEach(el => {
+            if(el.difficulty == 'normal'|| el.difficulty == 'easy'){
+                brownArray.push(el.cardFace);
+            }
+        })
+        blueCardsData.forEach(el => {
+            if(el.difficulty == 'normal'|| el.difficulty == 'easy'){
+               blueArray.push(el.cardFace);
+            }
+        })
+        getCards(greenArray,brownArray, blueArray);
+        
+    }
+    if(levelItem == 'hard'){
+        let greenArray = [];
+        let brownArray = [];
+        let blueArray = [];
+        greenCardsData.forEach(el => {
+            if(el.difficulty == 'normal'|| el.difficulty == 'hard'){
+                greenArray.push(el.cardFace);
+            }
+        })
+        brownCardsData.forEach(el => {
+            if(el.difficulty == 'normal'|| el.difficulty == 'hard'){
+                brownArray.push(el.cardFace);
+            }
+        })
+        blueCardsData.forEach(el => {
+            if(el.difficulty == 'normal'|| el.difficulty == 'hard'){
+               blueArray.push(el.cardFace);
+            }
+        })
+        getCards(greenArray,brownArray, blueArray);
+        
+        
+    }
+    if(levelItem == 'super-easy'){
+        let greenArray = [];
+        let brownArray = [];
+        let blueArray = [];
+        
+              
+       
+        let numberAncient = ancientDeck.findIndex(el => el.id == choosenAncient);
+        
+        
+        while(greenArray.length <= ancientDeck[numberAncient].greencard ){
+            greenCardsData.forEach(el => {
+                if(el.difficulty == 'easy'){
+                    greenArray.push(el.cardFace);
+                }
+            })
+            greenCardsData.forEach(el => {
+                if(el.difficulty == 'normal'){
+                    greenArray.push(el.cardFace);
+                }
+            })
+        }
+        while(brownArray.length <= ancientDeck[numberAncient]['brownCard'] ){
+            brownCardsData.forEach(el => {
+                if(el.difficulty == 'easy'){
+                    brownArray.push(el.cardFace);
+                }
+            })
+            brownCardsData.forEach(el => {
+                if(el.difficulty == 'normal'){
+                    brownArray.push(el.cardFace);
+                }
+            })
+        }
+        while(blueArray.length <= ancientDeck[numberAncient]['bluecard']){
+            blueCardsData.forEach(el => {
+                if(el.difficulty == 'easy'){
+                    blueArray.push(el.cardFace);
+                }
+            })
+            blueCardsData.forEach(el => {
+                if(el.difficulty == 'normal'){
+                    blueArray.push(el.cardFace);
+                }
+            })
+        }
+        getCards(greenArray,brownArray, blueArray);
+        
+        
+    }
+    if(levelItem == 'super-hard'){
+        let greenArray = [];
+        let brownArray = [];
+        let blueArray = [];          
+        let numberAncient = ancientDeck.findIndex(el => el.id == choosenAncient);
+        
+        while(greenArray.length <= ancientDeck[numberAncient].greencard ){
+            greenCardsData.forEach(el => {
+                if(el.difficulty == 'hard'){
+                    greenArray.push(el.cardFace);
+                }
+            })
+            greenCardsData.forEach(el => {
+                if(el.difficulty == 'normal'){
+                    greenArray.push(el.cardFace);
+                }
+            })
+        }
+
+        while(brownArray.length <= ancientDeck[numberAncient]['brownCard'] ){
+            brownCardsData.forEach(el => {
+                if(el.difficulty == 'hard'){
+                    brownArray.push(el.cardFace);
+                }
+            })
+            brownCardsData.forEach(el => {
+                if(el.difficulty == 'normal'){
+                    brownArray.push(el.cardFace);
+                }
+            })
+        }
+
+        while(blueArray.length <= ancientDeck[numberAncient]['bluecard']){
+            blueCardsData.forEach(el => {
+                if(el.difficulty == 'hard'){
+                    blueArray.push(el.cardFace);
+                }
+            })
+            blueCardsData.forEach(el => {
+                if(el.difficulty == 'normal'){
+                    blueArray.push(el.cardFace);
+                }
+            })
+        }
+
+        getCards(greenArray,brownArray, blueArray);
+    }
+}
+
+function getCards(greenCards, brownCards, blueCards){
+    if(cardsMatrix[i][j]>0){
+        if(j==0){
+            let randomIndex = randomCard(greenCards.length-1); 
+            while(greenSet.has(randomIndex)){
+                randomIndex = randomCard(greenCards.length-1);
+            }
+            greenSet.add(randomIndex);
+            console.log('green', randomIndex);
+            currentCard.style.content =`url("${greenCards[randomIndex]}")`;
+            showCard += 1;
+       
+        }
+
+        if(j==1){
+            let randomIndex = randomCard(brownCards.length-1); 
+            while(brownSet.has(randomIndex)){
+                randomIndex = randomCard(brownCards.length-1);
+            }
+            brownSet.add(randomIndex);
+            console.log('brown', randomIndex);
+            currentCard.style.content = `url("${brownCards[randomIndex]}")` ;
+            showCard += 1;
+        }
+
+        if(j==2){
+         
+            let randomIndex = randomCard(blueCards.length-1);
+            while(blueSet.has(randomIndex)){
+                randomIndex = randomCard(blueCards.length-1);
+            }
+            blueSet.add(randomIndex);
+            console.log('blue', randomIndex);
+            currentCard.style.content = `url("${blueCards[randomIndex]}")`;
+            showCard += 1;
+        } 
+
+        cardsMatrix[i][j] -= 1;
+        if(i == 0){
+            firstLi[j].textContent -= 1;
+        }
+        if(i == 1){
+            secondLi[j].textContent -= 1;
+        }
+        if(i == 2){
+            thirdLi[j].textContent -= 1;
+        }
+    }
+   
+}
+
+h1.addEventListener('click', () => {
+    console.log('greenSet', greenSet);
+    console.log('brownSet', brownSet);
+    console.log('blueSet', blueSet);
 })
+
+
 function showTracker(){
     let index = ancientsArr.indexOf(choosenAncient);
     deckTrackerList.classList.add('active');
@@ -411,6 +449,9 @@ btnToStage1.onclick = function(){
     deckTrackerList.classList.remove('active');
     deck.classList.remove('active');
     currentCard.style.content = '';
+    greenSet.clear();
+    brownSet.clear();
+    blueSet.clear();
    
 
 }
